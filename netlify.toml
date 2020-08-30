@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm run bootstrap && npm run build"
   publish = "apps/web/public"  
 
 [dev]
