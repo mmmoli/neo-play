@@ -1,0 +1,36 @@
+{
+  "name": "neo-play",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "shared/**",
+    "apps/**"
+  ],
+  "scripts": {
+    "build:changed": "lerna run --since origin/master --include-dependents build",
+    "build": "lerna run build",
+    "lint:changed": "lerna exec --since origin/master --include-dependents -- eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "lerna exec -- eslint . --ext .js,.jsx,.ts,.tsx",
+    "test:changed": "lerna run --since origin/master --include-dependents test",
+    "test:update:changed": "lerna run --since origin/master --include-dependents test -- -u",
+    "test:update": "lerna run test -- -u",
+    "test": "lerna run test",
+    "typecheck:changed": "lerna exec --since origin/master --include-dependents -- tsc --noEmit",
+    "typecheck": "lerna exec -- tsc --noEmit"
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.2.13"
+  },
+  "dependencies": {},
+  "prettier": {
+    "bracketSpacing": true,
+    "printWidth": 120,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
+  }
+}
