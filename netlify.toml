@@ -1,10 +1,9 @@
 [build]
-  command = "npm i && cd apps/api/ && npm i && cd ../web && npm i && cd ../../ && npm run build && mkdir -p functions/api && cp -rf apps/api/dist/. functions/api/"
-  publish = "apps/web/public"
-  functions = "functions"
+  command = "yarn build"
+  publish = "apps/web/public"  
 
 [dev]
-  command = "npm start"
+  command = "cd apps/web/yarn develop"
 
 [template.environment]
   NEO4J_URI = "Neo4j URI (ex: bolt://localhost:7687)"
