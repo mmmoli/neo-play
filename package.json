@@ -9,7 +9,7 @@
     "apps/**"
   ],
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "postinstall": "lerna bootstrap",
     "build:changed": "lerna run --since origin/master --include-dependents build",
     "build": "lerna run build",
     "commit": "npx git-cz",
