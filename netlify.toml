@@ -1,6 +1,6 @@
 [build]
   command = "yarn && lerna bootstrap && yarn build"
-  functions = ""
+  functions = "apps/api/dist"
   publish = "apps/web/public"
 
 [build.environment]
