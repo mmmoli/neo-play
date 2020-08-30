@@ -1,5 +1,5 @@
 [build]
-  command = "yarn"
+  command = "yarn && lerna bootstrap && yarn build"
   functions = ""
   publish = "apps/web/public"
 
