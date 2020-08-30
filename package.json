@@ -11,6 +11,10 @@
   "scripts": {
     "build:changed": "lerna run --since origin/master --include-dependents build",
     "build": "lerna run build",
+    "commit": "npx git-cz",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "lerna:changed": "npx lerna changed",
+    "lerna:publish": "npx lerna publish --conventional-commits",
     "lint:changed": "lerna exec --since origin/master --include-dependents -- eslint . --ext .js,.jsx,.ts,.tsx",
     "lint": "lerna exec -- eslint . --ext .js,.jsx,.ts,.tsx",
     "test:changed": "lerna run --since origin/master --include-dependents test",
@@ -21,6 +25,10 @@
     "typecheck": "lerna exec -- tsc --noEmit"
   },
   "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "commitizen": "^3.1.1",
+    "git-cz": "^3.0.1",
     "husky": "^4.2.5",
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.13"
@@ -32,5 +40,20 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "all"
+  },
+  "config": {
+    "commitizen": {
+      "path": "git-cz"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }
