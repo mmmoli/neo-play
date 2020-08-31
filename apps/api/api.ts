@@ -26,13 +26,19 @@ async function bootstrap(): Promise<Server> {
   return createServer(expressApp);
 }
 
-export async function handler(
-  event: APIGatewayEvent,
-  context: Context,
-): Promise<Response> {
-  if (!cachedServer) {
-    cachedServer = await bootstrap();
+export async function handler(event: APIGatewayEvent): Promise<Response> {
+  try {
+    const subject = event.queryStringParameters?.name || 'World';
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ message: `YO ${subject}` }),
+      headers: {},
+    };
+  } catch (err) {
+    return {
+      body: err.toString(),
+      headers: {},
+      statusCode: 500,
+    };
   }
-
-  return proxy(cachedServer, event, context, 'PROMISE').promise;
 }
