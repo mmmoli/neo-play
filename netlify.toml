@@ -7,8 +7,3 @@
   NODE_VERSION = "12.16.1"
   YARN_VERSION = "1.22.4"
   REACT_APP_ENVIRONMENT = "netlify"
-
-[[redirects]]
-  from = "/api"
-  to = "/.netlify/functions/api"
-  status = 200
