@@ -1,5 +1,5 @@
 [build]
-  command = "yarn && lerna bootstrap && yarn build && mkdir -p functions/api/ && cp -rf apps/api/dist/. functions/api/"
+  command = "yarn && lerna bootstrap && yarn build"
   functions = "functions/"
   publish = "apps/web/public/"
 
