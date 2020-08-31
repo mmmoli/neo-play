@@ -1,5 +1,5 @@
 [build]
-  command = "yarn && lerna bootstrap && yarn build"
+  command = "yarn && lerna bootstrap && yarn build && mkdir -p functions/api/ && cp -rf apps/api/dist/. functions/api/"
   functions = "apps/api/dist"
   publish = "apps/web/public"
 
@@ -7,3 +7,8 @@
   NODE_VERSION = "12.16.1"
   YARN_VERSION = "1.22.4"
   REACT_APP_ENVIRONMENT = "netlify"
+
+[[redirects]]
+  from = "/api"
+  to = "/.netlify/functions/api"
+  status = 200
