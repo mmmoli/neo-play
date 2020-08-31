@@ -1,19 +1,26 @@
-import { APIGatewayEvent } from 'aws-lambda';
-import { Response } from 'aws-serverless-express';
+import { APIGatewayProxyHandler } from 'aws-lambda';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './src/app.module';
+import { Server } from 'http';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import awsServerlessExpress from 'aws-serverless-express';
+import express from 'express';
 
-export async function handler(event: APIGatewayEvent): Promise<Response> {
-  try {
-    const subject = event.queryStringParameters?.name || 'World';
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: `YO ${subject}` }),
-      headers: {},
-    };
-  } catch (err) {
-    return {
-      body: err.toString(),
-      headers: {},
-      statusCode: 500,
-    };
+let cachedServer: Server;
+
+const bootstrapServer = async (): Promise<Server> => {
+  const expressApp = express();
+  const adapter = new ExpressAdapter(expressApp);
+  const app = await NestFactory.create(AppModule, adapter);
+  app.enableCors();
+  await app.init();
+  return awsServerlessExpress.createServer(expressApp);
+};
+
+export const handler: APIGatewayProxyHandler = async (event, context) => {
+  if (!cachedServer) {
+    cachedServer = await bootstrapServer();
   }
-}
+  return awsServerlessExpress.proxy(cachedServer, event, context, 'PROMISE')
+    .promise;
+};
