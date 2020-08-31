@@ -1,7 +1,7 @@
 [build]
   command = "yarn && lerna bootstrap && yarn build && mkdir -p functions/api/ && cp -rf apps/api/dist/. functions/api/"
-  functions = "apps/api/dist"
-  publish = "apps/web/public"
+  functions = "functions/"
+  publish = "apps/web/public/"
 
 [build.environment]
   NODE_VERSION = "12.16.1"
